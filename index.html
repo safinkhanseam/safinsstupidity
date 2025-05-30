@@ -1,317 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Safin's Stupidity - Generate and download free memes">
-  <title>Safin's Stupidity</title>
-  <style>
-    :root {
-      --charcoal: #18181b;
-      --neon: #39ff14;
-      --cyan: #00ffaa;
-      --cream: #f8f9fa;
-      --deepblue: #1e3a8a;
-      --radius: 16px;
-    }
-    body {
-      font-family: -apple-system, system-ui, sans-serif;
-      background: var(--charcoal);
-      color: #fff;
-      margin: 0;
-      min-height: 100vh;
-    }
-    .light-theme {
-      background: var(--cream);
-      color: var(--deepblue);
-    }
-    .navbar {
-      position: sticky;
-      top: 0;
-      background: #232946;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-    }
-    .light-theme .navbar {
-      background: #fff;
-    }
-    h1, h2 {
-      font-weight: 700;
-    }
-    h1 {
-      font-size: 1.5rem;
-      color: var(--neon);
-    }
-    .light-theme h1 {
-      color: var(--deepblue);
-    }
-    h2 {
-      font-size: 1.75rem;
-      color: var(--neon);
-      margin: 0 0 12px;
-    }
-    .light-theme h2 {
-      color: var(--deepblue);
-    }
-    p {
-      font-size: 1rem;
-      color: #bbb;
-    }
-    .light-theme p {
-      color: #555;
-    }
-    select, button, input {
-      font-size: .875rem;
-      padding: 6px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    select, input {
-      background: #232946;
-      color: #fff;
-      border: 1px solid #444;
-    }
-    .light-theme select,
-    .light-theme input {
-      background: #fff;
-      color: var(--deepblue);
-      border-color: #ccc;
-    }
-    #theme-toggle {
-      background: #232946;
-      color: #fff;
-      border: none;
-      width: 36px;
-      height: 36px;
-    }
-    .light-theme #theme-toggle {
-      background: #fff;
-      color: var(--deepblue);
-    }
-    .sun-icon { display: none; }
-    .light-theme .moon-icon { display: none; }
-    .light-theme .sun-icon { display: inline; }
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 16px;
-      text-align: center;
-    }
-    .input-group {
-      display: flex;
-      gap: 8px;
-      margin: 0 auto 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .generate-btn {
-      background: var(--neon);
-      color: var(--charcoal);
-      font-weight: 700;
-      border: none;
-      padding: 8px 16px;
-    }
-    .generate-btn:hover {
-      background: var(--cyan);
-    }
-    .light-theme .generate-btn {
-      background: var(--deepblue);
-      color: #fff;
-    }
-    .light-theme .generate-btn:hover {
-      background: #4a90e2;
-    }
-    .download-btn {
-      background: #444;
-      color: #fff;
-      font-weight: 700;
-    }
-    .light-theme .download-btn {
-      background: #666;
-    }
-    .meme-card {
-      background: #232946;
-      border-radius: var(--radius);
-      padding: 12px;
-      margin: 0 auto;
-      max-width: 100%;
-      display: none;
-    }
-    .light-theme .meme-card {
-      background: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-    }
-    .meme-card img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      object-fit: contain;
-    }
-    .share-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .share-btn {
-      background: #444;
-      color: #fff;
-      font-size: .75rem;
-      text-decoration: none;
-      border-radius: 8px;
-      padding: 4px 12px;
-    }
-    .light-theme .share-btn {
-      background: #ddd;
-      color: #333;
-    }
-    .badge {
-      background: #232946;
-      color: var(--neon);
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: .75rem;
-    }
-    .light-theme .badge {
-      background: #e8eaf6;
-      color: var(--deepblue);
-    }
-    footer {
-      background: #232946;
-      color: #bbb;
-      padding: 12px;
-      font-size: .75rem;
-    }
-    .light-theme footer {
-      background: #e8eaf6;
-      color: #555;
-    }
-    @media (max-width: 640px) {
-      .input-group {
-        flex-direction: column;
-      }
-      select, input {
-        width: 100%;
-        box-sizing: border-box;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Safin's Stupidity - Endless free memes from Reddit's best communities!">
+    <title>Safin's Stupidity</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😂</text></svg>">
+    <style>
+        :root {
+            --charcoal: #18181b;
+            --neon: #39ff14;
+            --cyan: #00ffaa;
+            --cream: #f8f9fa;
+            --deepblue: #1e3a8a;
+            --radius: 16px;
+        }
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: var(--charcoal);
+            color: #fff;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .light-theme {
+            background: var(--cream);
+            color: var(--deepblue);
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: #232946;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        .light-theme .navbar {
+            background: #fff;
+        }
+        h1, h2 {
+            font-weight: 700;
+            margin: 0;
+        }
+        h1 {
+            font-size: 1.5rem;
+            color: var(--neon);
+        }
+        .light-theme h1 {
+            color: var(--deepblue);
+        }
+        h2 {
+            font-size: 1.75rem;
+            color: var(--neon);
+            margin-bottom: 12px;
+        }
+        .light-theme h2 {
+            color: var(--deepblue);
+        }
+        p {
+            font-size: 1rem;
+            color: #bbb;
+            margin-bottom: 1rem;
+        }
+        .light-theme p {
+            color: #555;
+        }
+        select, button {
+            font-size: .875rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        select {
+            background: #232946;
+            color: #fff;
+            border: 1px solid #444;
+            flex-grow: 1;
+        }
+        .light-theme select {
+            background: #fff;
+            color: var(--deepblue);
+            border-color: #ccc;
+        }
+        #theme-toggle {
+            background: #232946;
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .light-theme #theme-toggle {
+            background: #fff;
+            color: var(--deepblue);
+        }
+        .sun-icon { display: none; }
+        .light-theme .moon-icon { display: none; }
+        .light-theme .sun-icon { display: inline; }
+        .container {
+            max-width: 680px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 16px;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin: 0 auto 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .generate-btn {
+            background: var(--neon);
+            color: var(--charcoal);
+            font-weight: 700;
+            border: none;
+            padding: 10px 20px;
+            transition: background 0.3s ease;
+        }
+        .generate-btn:hover:not(:disabled) {
+            background: var(--cyan);
+        }
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .light-theme .generate-btn {
+            background: var(--deepblue);
+            color: #fff;
+        }
+        .light-theme .generate-btn:hover:not(:disabled) {
+            background: #4a90e2;
+        }
+        .download-btn, .share-btn {
+            background: #444;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        .download-btn:hover, .share-btn:hover {
+            background: #666;
+        }
+        .light-theme .download-btn, .light-theme .share-btn {
+            background: #666;
+        }
+        .light-theme .download-btn:hover, .light-theme .share-btn:hover {
+            background: #888;
+        }
+        .meme-card {
+            background: #232946;
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 0 auto;
+            max-width: 100%;
+            min-height: 200px; /* To maintain layout during loading */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            position: relative; /* For spinner positioning */
+        }
+        .light-theme .meme-card {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+        }
+        .meme-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            object-fit: contain;
+            background-color: #000;
+            max-height: 500px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 1; /* Default to visible */
+            transition: opacity 0.3s ease-in-out;
+        }
+        .meme-card.loading img,
+        .meme-card.loading .share-buttons {
+            opacity: 0.2; /* Dim content when loading */
+            pointer-events: none; /* Disable clicks on dimmed content */
+        }
+        .meme-card.loading #meme-title {
+            opacity: 0.2;
+        }
+        .meme-card p {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .light-theme .meme-card p {
+            color: #444;
+        }
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .badge {
+            background: #232946;
+            color: var(--neon);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: .8rem;
+            margin: 0 4px;
+            display: inline-block;
+        }
+        .light-theme .badge {
+            background: #e8eaf6;
+            color: var(--deepblue);
+        }
+        footer {
+            width: 100%;
+            background: #232946;
+            color: #bbb;
+            padding: 12px;
+            font-size: .75rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        .light-theme footer {
+            background: #e8eaf6;
+            color: #555;
+        }
+
+        /* Loading Spinner CSS */
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--neon);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; /* Hidden by default */
+        }
+        .light-theme .loading-spinner {
+            border-top: 4px solid var(--deepblue);
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 10px;
+                margin-top: 10px;
+            }
+            .input-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            select, .generate-btn {
+                width: 100%;
+            }
+            .share-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .download-btn, .share-btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="navbar">
-    <h1>Safin's Stupidity</h1>
-    <div>
-      <select id="lang-toggle">
-        <option value="en">EN</option>
-        <option value="bn">BN</option>
-      </select>
-      <button id="theme-toggle"><span class="moon-icon">🌙</span><span class="sun-icon">☀️</span></button>
+    <div class="navbar">
+        <h1>Safin's Stupidity</h1>
+        <div>
+            <select id="lang-toggle">
+                <option value="en">EN</option>
+                <option value="bn">BN</option>
+            </select>
+            <button id="theme-toggle" aria-label="Toggle theme"><span class="moon-icon">🌙</span><span class="sun-icon">☀️</span></button>
+        </div>
     </div>
-  </div>
-  <div class="container">
-    <h2 data-text="Meme Generator" data-bn="মেমে জেনারেটর">Meme Generator</h2>
-    <p data-text="Generate and download free memes!" data-bn="ফ্রি মেমে তৈরি ও ডাউনলোড করুন!">Generate and download free memes!</p>
-    <div class="input-group">
-      <select id="meme-category">
-        <option value="all">All</option>
-        <option value="wholesomememes">Wholesome</option>
-        <option value="memes">Classic</option>
-        <option value="dankmemes">Dank</option>
-        <option value="ProgrammerHumor">Programmer</option>
-        <option value="memegen">Custom (Memegen)</option>
-        <option value="imgflip">Custom (Imgflip)</option>
-      </select>
-      <input id="meme-topic" type="text" placeholder="Top text or topic">
-      <input id="meme-bottom-text" type="text" placeholder="Bottom text (optional)">
-      <button id="generate-meme" class="generate-btn">Generate</button>
+    <div class="container">
+        <h2 data-en="Meme Generator" data-bn="মেমে জেনারেটর">Meme Generator</h2>
+        <p data-en="Endless free memes from Reddit's best communities!" data-bn="রেডিটের সেরা কমিউনিটি থেকে অফুরন্ত ফ্রি মেমে!">Endless free memes from Reddit's best communities!</p>
+        <div class="input-group">
+            <select id="meme-category">
+                <option value="memes" data-en="General Memes" data-bn="সাধারণ মেমে">General Memes</option>
+                <option value="dankmemes" data-en="Dank Memes" data-bn="ড্যাঙ্ক মেমে">Dank Memes</option>
+                <option value="wholesomememes" data-en="Wholesome" data-bn="ভালো মেমে">Wholesome</option>
+                <option value="me_irl" data-en="Me IRL" data-bn="মি আইআরএল">Me IRL</option>
+                <option value="funny" data-en="Funny" data-bn="মজার">Funny</option>
+                <option value="HistoryMemes" data-en="History Memes" data-bn="ইতিহাস মেমে">History Memes</option>
+                <option value="ProgrammerHumor" data-en="Programmer Humor" data-bn="প্রোগ্রামার হাস্যরস">Programmer Humor</option>
+                <option value="Animemes" data-en="Anime Memes" data-bn="অ্যানিমে মেমে">Anime Memes</option>
+                <option value="gamingmemes" data-en="Gaming Memes" data-bn="গেমিং মেমে">Gaming Memes</option>
+                <option value="marvelmemes" data-en="Marvel Memes" data-bn="মার্ভেল মেমে">Marvel Memes</option>
+                <option value="dndmemes" data-en="DnD Memes" data-bn="ডিএনডি মেমে">DnD Memes</option>
+                <option value="terriblefacebookmemes" data-en="Facebook Memes" data-bn="ফেসবুক মেমে">Facebook Memes</option>
+                <option value="comedycemetery" data-en="Comedy Cemetery" data-bn="কমেডি সেমেটারি">Comedy Cemetery</option>
+                <option value="AdviceAnimals" data-en="Advice Animals" data-bn="অ্যাডভাইস অ্যানিমেলস">Advice Animals</option>
+                <option value="PewdiepieSubmissions" data-en="PewDiePie Submissions" data-bn="পিউডিপাই সাবমিশন">PewDiePie Submissions</option>
+                <option value="lotrmemes" data-en="Lord of the Rings Memes" data-bn="লর্ড অফ দ্য রিংস মেমে">Lord of the Rings Memes</option>
+                <option value="starwarsmemes" data-en="Star Wars Memes" data-bn="স্টার ওয়ার্স মেমে">Star Wars Memes</option>
+                <option value="dogelore" data-en="Doge Lore" data-bn="ডোজ লোর">Doge Lore</option>
+                <option value="surrealmemes" data-en="Surreal Memes" data-bn="সারিয়াল মেমে">Surreal Memes</option>
+                <option value="bonehurtingjuice" data-en="Bone Hurting Juice" data-bn="বোন হার্টিং জুস">Bone Hurting Juice</option>
+                <option value="starterpacks" data-en="Starter Packs" data-bn="স্টার্টার প্যাক">Starter Packs</option>
+                <option value="freezingfelines" data-en="Freezing Felines (Cats)" data-bn="ফ্রিজিং ফেলিনস (বিড়াল)">Freezing Felines (Cats)</option>
+            </select>
+            <button id="generate-meme" class="generate-btn" data-en="Next Meme" data-bn="পরবর্তী মেমে">Next Meme</button>
+        </div>
+        <div id="meme-output" class="meme-card">
+            <div class="loading-spinner" id="spinner"></div> <img id="meme-image" src="" alt="Meme" loading="lazy" decoding="async">
+            <p id="meme-title"></p>
+            <div class="share-buttons">
+                <a id="share-twitter" href="#" target="_blank" rel="noopener noreferrer" class="share-btn">X</a>
+                <a id="share-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="share-btn">WhatsApp</a>
+                <a id="download-meme" href="#" download="safin-meme.png" class="download-btn" data-en="Download" data-bn="ডাউনলোড করুন">Download</a>
+            </div>
+        </div>
+        <div style="padding: 16px 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+            <span class="badge">Free</span>
+            <span class="badge">Reddit API</span>
+            <span class="badge">EN | BN</span>
+        </div>
     </div>
-    <div id="meme-output" class="meme-card">
-      <img id="meme-image" src="" alt="Meme" loading="lazy">
-      <p id="meme-title"></p>
-      <div class="share-buttons">
-        <a id="share-twitter" href="#" target="_blank" class="share-btn">X</a>
-        <a id="share-whatsapp" href="#" target="_blank" class="share-btn">WhatsApp</a>
-        <a id="download-meme" href="#" download="safin-meme.png" class="download-btn">Download</a>
-      </div>
-    </div>
-    <div style="padding: 16px 0; display: flex; justify-content: center; gap: 8px;">
-      <span class="badge">Free</span>
-      <span class="badge">Multi-API</span>
-      <span class="badge">EN | BN</span>
-    </div>
-  </div>
-  <footer><p>© 2025 Safin's Stupidity</p></footer>
-  <script>
-    const langToggle = document.getElementById('lang-toggle');
-    const themeToggle = document.getElementById('theme-toggle');
-    const memeBtn = document.getElementById('generate-meme');
-    const memeImg = document.getElementById('meme-image');
-    const memeTitle = document.getElementById('meme-title');
-    const memeOutput = document.getElementById('meme-output');
-    const downloadLink = document.getElementById('download-meme');
+    <footer><p data-en="© 2025 Safin's Stupidity" data-bn="© ২০২৫ সাফিনের বোকামি">© 2025 Safin's Stupidity</p></footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggle = document.getElementById('lang-toggle');
+            const themeToggle = document.getElementById('theme-toggle');
+            const generateMemeBtn = document.getElementById('generate-meme');
+            const memeCategorySelect = document.getElementById('meme-category');
+            const memeOutputDiv = document.getElementById('meme-output');
+            const memeImage = document.getElementById('meme-image');
+            const memeTitle = document.getElementById('meme-title');
+            const downloadMemeLink = document.getElementById('download-meme');
+            const shareTwitterLink = document.getElementById('share-twitter');
+            const shareWhatsappLink = document.getElementById('share-whatsapp');
+            const shareButtonsDiv = document.querySelector('.share-buttons');
+            const spinner = document.getElementById('spinner'); // Get the spinner element
 
-    themeToggle.onclick = () => {
-      document.body.classList.toggle('light-theme');
-      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
-    };
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light-theme');
-    }
+            // --- Configuration ---
+            const SUBREDDITS = [
+                'memes', 'dankmemes', 'wholesomememes', 'me_irl', 'funny',
+                'MemeEconomy', 'PewdiepieSubmissions', 'HistoryMemes', 'prequelmemes',
+                'lotrmemes', 'starwarsmemes', 'dogelore', 'surrealmemes',
+                'bonehurtingjuice', 'starterpacks', 'ProgrammerHumor', 'Animemes',
+                'gamingmemes', 'marvelmemes', 'dndmemes', 'terriblefacebookmemes',
+                'comedycemetery', 'AdviceAnimals', 'PandR', 'freezingfelines'
+            ];
+            const MEMES_PER_FETCH = 25; // Increased batch size for potentially faster subsequent loads
 
-    langToggle.addEventListener('change', () => {
-      const lang = langToggle.value;
-      document.querySelectorAll('[data-text]').forEach(el => {
-        const text = el.getAttribute(`data-${lang}`);
-        if (text) {
-          if (el.tagName === 'INPUT') el.placeholder = text;
-          else el.textContent = text;
-        }
-      });
-    });
+            let memeQueue = [];
+            let currentMemeIndex = 0;
+            let currentCategory = memeCategorySelect.value;
+            let isFetching = false; // To prevent multiple simultaneous fetches
 
-    memeBtn.addEventListener('click', async () => {
-      const category = document.getElementById('meme-category').value;
-      const topic = document.getElementById('meme-topic').value || 'MEME';
-      const bottom = document.getElementById('meme-bottom-text').value || 'SAFIN';
-      memeOutput.style.display = 'none';
-      memeTitle.textContent = 'Loading...';
-      let url = '';
-      try {
-        if (category === 'memegen') {
-          url = `https://api.memegen.link/images/buzz/${encodeURIComponent(topic)}/${encodeURIComponent(bottom)}.png`;
-        } else if (category === 'imgflip') {
-          const res = await fetch('https://api.imgflip.com/caption_image', {
-            method: 'POST',
-            body: new URLSearchParams({
-              template_id: '181913649',
-              username: 'publicuser',
-              password: 'publicpass',
-              text0: topic,
-              text1: bottom
-            })
-          });
-          const data = await res.json();
-          url = data.success ? data.data.url : '';
-        } else {
-          const res = await fetch(`https://meme-api.com/gimme/${category}`);
-          const data = await res.json();
-          url = data.url;
-          memeTitle.textContent = data.title || topic;
-        }
-        if (url) {
-          memeImg.src = url;
-          downloadLink.href = url;
-          downloadLink.download = `safin-meme-${Date.now()}.png`;
-          memeOutput.style.display = 'block';
-        }
-      } catch (e) {
-        memeTitle.textContent = 'Failed to generate meme. Try again!';
-      }
-    });
-  </script>
+            // --- Theme Toggle ---
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+            });
+
+            // Apply saved theme on load
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-theme');
+            }
+
+            // --- Language Toggle ---
+            const updateLanguage = (lang) => {
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    const textContent = el.getAttribute(`data-${lang}`) || el.getAttribute(`data-en`);
+                    if (el.tagName === 'BUTTON' || el.tagName === 'OPTION') {
+                        el.textContent = textContent;
+                    } else {
+                        el.textContent = textContent;
+                    }
+                });
+                generateMemeBtn.textContent = lang === 'bn' ? 'পরবর্তী মেমে' : 'Next Meme';
+            };
+
+            langToggle.addEventListener('change', () => {
+                localStorage.setItem('lang', langToggle.value);
+                updateLanguage(langToggle.value);
+            });
+
+            const savedLang = localStorage.getItem('lang') || 'en';
+            langToggle.value = savedLang;
+            updateLanguage(savedLang);
+
+            // --- Meme Display Logic ---
+            const setMemeContent = (src, title) => {
+                // Dim existing content and show spinner immediately
+                memeOutputDiv.classList.add('loading');
+                spinner.style.display = 'block';
+
+                const img = new Image();
+                img.onload = () => {
+                    memeImage.src = src;
+                    memeImage.alt = title;
+                    memeTitle.textContent = title;
+                    downloadMemeLink.href = src;
+                    downloadMemeLink.download = `safin-meme-${Date.now()}.png`;
+
+                    const encodedMemeUrl = encodeURIComponent(src);
+                    const encodedMemeText = encodeURIComponent(`Check out this meme from Safin's Stupidity: "${title}"`);
+                    
+                    shareTwitterLink.href = `https://twitter.com/intent/tweet?text=${encodedMemeText}&url=${encodedMemeUrl}`;
+                    shareWhatsappLink.href = `https://api.whatsapp.com/send?text=${encodedMemeText}%20${encodedMemeUrl}`;
+
+                    // Remove loading states and show elements
+                    memeOutputDiv.classList.remove('loading');
+                    spinner.style.display = 'none';
+                    memeImage.style.display = 'block';
+                    shareButtonsDiv.style.display = 'flex';
+                };
+                img.onerror = () => {
+                    memeTitle.textContent = langToggle.value === 'bn' ? 'মেমে লোড করা যায়নি: অবৈধ চিত্র!' : 'Failed to load meme: Invalid image!';
+                    memeImage.src = '';
+                    memeImage.style.display = 'none'; // Hide broken image icon
+                    shareButtonsDiv.style.display = 'none'; // Hide buttons
+                    memeOutputDiv.classList.remove('loading');
+                    spinner.style.display = 'none';
+                };
+                img.src = src; // Start loading the image
+            };
+
+            const loadMemesIntoQueue = async () => {
+                if (isFetching) return; // Prevent double fetching
+                isFetching = true;
+
+                // Show loading state and dim content
+                memeOutputDiv.classList.add('loading');
+                spinner.style.display = 'block';
+                // memeTitle.textContent = langToggle.value === 'bn' ? 'মেমে লোড হচ্ছে...' : 'Loading memes...'; // Optionally hide this if spinner is enough
+                generateMemeBtn.disabled = true;
+
+                const apiCategory = currentCategory;
+
+                try {
+                    const response = await fetch(`https://meme-api.com/gimme/${apiCategory}/${MEMES_PER_FETCH}`);
+                    const data = await response.json();
+
+                    if (data.memes && data.memes.length > 0) {
+                        memeQueue = data.memes;
+                        currentMemeIndex = 0;
+                        displayNextMeme(); // Display first meme from new batch
+                    } else {
+                        console.error('Meme-API returned no memes:', data);
+                        memeTitle.textContent = langToggle.value === 'bn' ? 'এই ক্যাটাগরিতে কোনো মেমে পাওয়া যায়নি। অন্য একটি চেষ্টা করুন!' : 'No memes found for this category. Try another!';
+                        memeImage.src = ''; // Clear image if no memes
+                        memeImage.style.display = 'none';
+                        shareButtonsDiv.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error fetching memes:', error);
+                    memeTitle.textContent = langToggle.value === 'bn' ? 'মেমে লোড করা যায়নি: আবার চেষ্টা করুন!' : `Failed to load memes: Please try again!`;
+                    memeImage.src = '';
+                    memeImage.style.display = 'none';
+                    shareButtonsDiv.style.display = 'none';
+                } finally {
+                    isFetching = false;
+                    generateMemeBtn.disabled = false;
+                    generateMemeBtn.textContent = langToggle.value === 'bn' ? 'পরবর্তী মেমে' : 'Next Meme';
+                    // If no meme was loaded (e.g., API error or empty response), remove loading state here
+                    if (memeImage.src === '') { 
+                        memeOutputDiv.classList.remove('loading');
+                        spinner.style.display = 'none';
+                    }
+                }
+            };
+
+            const displayNextMeme = () => {
+                if (currentMemeIndex < memeQueue.length) {
+                    const meme = memeQueue[currentMemeIndex];
+                    setMemeContent(meme.url, meme.title);
+                    currentMemeIndex++;
+                } else {
+                    // Queue exhausted, fetch more
+                    loadMemesIntoQueue();
+                }
+            };
+
+            // --- Event Listeners ---
+            generateMemeBtn.addEventListener('click', displayNextMeme);
+
+            memeCategorySelect.addEventListener('change', () => {
+                currentCategory = memeCategorySelect.value;
+                memeQueue = [];
+                currentMemeIndex = 0;
+                loadMemesIntoQueue();
+            });
+
+            // Initial load of memes when the page loads
+            loadMemesIntoQueue();
+        });
+    </script>
 </body>
 </html>
