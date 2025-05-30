@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Safin's Stupidity - Generate and download free memes">
+  <title>Safin's Stupidity</title>
+  <style>
+    :root {
+      --charcoal: #18181b;
+      --neon: #39ff14;
+      --cyan: #00ffaa;
+      --cream: #f8f9fa;
+      --deepblue: #1e3a8a;
+      --radius: 16px;
+    }
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      background: var(--charcoal);
+      color: #fff;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .light-theme {
+      background: var(--cream);
+      color: var(--deepblue);
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: #232946;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .light-theme .navbar {
+      background: #fff;
+    }
+    h1, h2 {
+      font-weight: 700;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: var(--neon);
+    }
+    .light-theme h1 {
+      color: var(--deepblue);
+    }
+    h2 {
+      font-size: 1.75rem;
+      color: var(--neon);
+      margin: 0 0 12px;
+    }
+    .light-theme h2 {
+      color: var(--deepblue);
+    }
+    p {
+      font-size: 1rem;
+      color: #bbb;
+    }
+    .light-theme p {
+      color: #555;
+    }
+    select, button, input {
+      font-size: .875rem;
+      padding: 6px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    select, input {
+      background: #232946;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    .light-theme select,
+    .light-theme input {
+      background: #fff;
+      color: var(--deepblue);
+      border-color: #ccc;
+    }
+    #theme-toggle {
+      background: #232946;
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+    }
+    .light-theme #theme-toggle {
+      background: #fff;
+      color: var(--deepblue);
+    }
+    .sun-icon { display: none; }
+    .light-theme .moon-icon { display: none; }
+    .light-theme .sun-icon { display: inline; }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 16px;
+      text-align: center;
+    }
+    .input-group {
+      display: flex;
+      gap: 8px;
+      margin: 0 auto 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .generate-btn {
+      background: var(--neon);
+      color: var(--charcoal);
+      font-weight: 700;
+      border: none;
+      padding: 8px 16px;
+    }
+    .generate-btn:hover {
+      background: var(--cyan);
+    }
+    .light-theme .generate-btn {
+      background: var(--deepblue);
+      color: #fff;
+    }
+    .light-theme .generate-btn:hover {
+      background: #4a90e2;
+    }
+    .download-btn {
+      background: #444;
+      color: #fff;
+      font-weight: 700;
+    }
+    .light-theme .download-btn {
+      background: #666;
+    }
+    .meme-card {
+      background: #232946;
+      border-radius: var(--radius);
+      padding: 12px;
+      margin: 0 auto;
+      max-width: 100%;
+      display: none;
+    }
+    .light-theme .meme-card {
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+    }
+    .meme-card img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      object-fit: contain;
+    }
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .share-btn {
+      background: #444;
+      color: #fff;
+      font-size: .75rem;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 4px 12px;
+    }
+    .light-theme .share-btn {
+      background: #ddd;
+      color: #333;
+    }
+    .badge {
+      background: #232946;
+      color: var(--neon);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .75rem;
+    }
+    .light-theme .badge {
+      background: #e8eaf6;
+      color: var(--deepblue);
+    }
+    footer {
+      background: #232946;
+      color: #bbb;
+      padding: 12px;
+      font-size: .75rem;
+    }
+    .light-theme footer {
+      background: #e8eaf6;
+      color: #555;
+    }
+    @media (max-width: 640px) {
+      .input-group {
+        flex-direction: column;
+      }
+      select, input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Safin's Stupidity</h1>
+    <div>
+      <select id="lang-toggle">
+        <option value="en">EN</option>
+        <option value="bn">BN</option>
+      </select>
+      <button id="theme-toggle"><span class="moon-icon">🌙</span><span class="sun-icon">☀️</span></button>
+    </div>
+  </div>
+  <div class="container">
+    <h2 data-text="Meme Generator" data-bn="মেমে জেনারেটর">Meme Generator</h2>
+    <p data-text="Generate and download free memes!" data-bn="ফ্রি মেমে তৈরি ও ডাউনলোড করুন!">Generate and download free memes!</p>
+    <div class="input-group">
+      <select id="meme-category">
+        <option value="all">All</option>
+        <option value="wholesomememes">Wholesome</option>
+        <option value="memes">Classic</option>
+        <option value="dankmemes">Dank</option>
+        <option value="ProgrammerHumor">Programmer</option>
+        <option value="memegen">Custom (Memegen)</option>
+        <option value="imgflip">Custom (Imgflip)</option>
+      </select>
+      <input id="meme-topic" type="text" placeholder="Top text or topic">
+      <input id="meme-bottom-text" type="text" placeholder="Bottom text (optional)">
+      <button id="generate-meme" class="generate-btn">Generate</button>
+    </div>
+    <div id="meme-output" class="meme-card">
+      <img id="meme-image" src="" alt="Meme" loading="lazy">
+      <p id="meme-title"></p>
+      <div class="share-buttons">
+        <a id="share-twitter" href="#" target="_blank" class="share-btn">X</a>
+        <a id="share-whatsapp" href="#" target="_blank" class="share-btn">WhatsApp</a>
+        <a id="download-meme" href="#" download="safin-meme.png" class="download-btn">Download</a>
+      </div>
+    </div>
+    <div style="padding: 16px 0; display: flex; justify-content: center; gap: 8px;">
+      <span class="badge">Free</span>
+      <span class="badge">Multi-API</span>
+      <span class="badge">EN | BN</span>
+    </div>
+  </div>
+  <footer><p>© 2025 Safin's Stupidity</p></footer>
+  <script>
+    const langToggle = document.getElementById('lang-toggle');
+    const themeToggle = document.getElementById('theme-toggle');
+    const memeBtn = document.getElementById('generate-meme');
+    const memeImg = document.getElementById('meme-image');
+    const memeTitle = document.getElementById('meme-title');
+    const memeOutput = document.getElementById('meme-output');
+    const downloadLink = document.getElementById('download-meme');
+
+    themeToggle.onclick = () => {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+    };
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-theme');
+    }
+
+    langToggle.addEventListener('change', () => {
+      const lang = langToggle.value;
+      document.querySelectorAll('[data-text]').forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          if (el.tagName === 'INPUT') el.placeholder = text;
+          else el.textContent = text;
+        }
+      });
+    });
+
+    memeBtn.addEventListener('click', async () => {
+      const category = document.getElementById('meme-category').value;
+      const topic = document.getElementById('meme-topic').value || 'MEME';
+      const bottom = document.getElementById('meme-bottom-text').value || 'SAFIN';
+      memeOutput.style.display = 'none';
+      memeTitle.textContent = 'Loading...';
+      let url = '';
+      try {
+        if (category === 'memegen') {
+          url = `https://api.memegen.link/images/buzz/${encodeURIComponent(topic)}/${encodeURIComponent(bottom)}.png`;
+        } else if (category === 'imgflip') {
+          const res = await fetch('https://api.imgflip.com/caption_image', {
+            method: 'POST',
+            body: new URLSearchParams({
+              template_id: '181913649',
+              username: 'publicuser',
+              password: 'publicpass',
+              text0: topic,
+              text1: bottom
+            })
+          });
+          const data = await res.json();
+          url = data.success ? data.data.url : '';
+        } else {
+          const res = await fetch(`https://meme-api.com/gimme/${category}`);
+          const data = await res.json();
+          url = data.url;
+          memeTitle.textContent = data.title || topic;
+        }
+        if (url) {
+          memeImg.src = url;
+          downloadLink.href = url;
+          downloadLink.download = `safin-meme-${Date.now()}.png`;
+          memeOutput.style.display = 'block';
+        }
+      } catch (e) {
+        memeTitle.textContent = 'Failed to generate meme. Try again!';
+      }
+    });
+  </script>
+</body>
+</html>
